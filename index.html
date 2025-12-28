@@ -1,1 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ebook • GPT School • Páginas de Vendas (PT + EN)</title>
+
+  <!-- ====== CSS (único arquivo) ====== -->
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#0f1620;
+      --card:#111a26;
+      --muted:#93a4b8;
+      --text:#eaf2ff;
+      --line:rgba(255,255,255,.09);
+      --brand:#ff6a00;
+      --brand2:#4aa3ff;
+      --ok:#36d399;
+      --warn:#fbbf24;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius:16px;
+      --radius2:22px;
+      --max:1100px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(255,106,0,.18), transparent 60%),
+                  radial-gradient(1200px 600px at 80% 10%, rgba(74,163,255,.16), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:22px 18px 80px; }
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: rgba(11,15,20,.75);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar .inner{
+      max-width:var(--max); margin:0 auto;
+      padding:12px 18px;
+      display:flex; align-items:center; gap:12px; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 0 6px rgba(255,106,0,.10);
+    }
+    .controls{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .seg{
+      display:flex; border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius:999px; overflow:hidden;
+    }
+    .seg button{
+      border:0; background:transparent; color:var(--muted);
+      padding:9px 12px; cursor:pointer; font-weight:700;
+    }
+    .seg button.active{
+      color:var(--text);
+      background: rgba(255,255,255,.07);
+    }
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      padding:9px 12px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .btn.primary{
+      border-color: rgba(255,106,0,.45);
+      background: linear-gradient(135deg, rgba(255,106,0,.95), rgba(255,140,0,.85));
+      color:#111;
+      box-shadow: 0 12px 30px rgba(255,106,0,.20);
+    }
+
+    /* ===== hero ===== */
+    .hero{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel.pad{ padding:18px; }
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-weight:800; color:var(--muted);
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+      margin-top:10px;
+    }
+    h1{
+      margin:10px 0 8px;
+      font-size: clamp(28px, 3.3vw, 42px);
+      line-height:1.1;
+      letter-spacing:-.5px;
+    }
+    .sub{
+      color:var(--muted);
+      font-size: 15.5px;
+      margin:0 0 16px;
+    }
+    .ctaRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .ctaRow .btn{ padding:12px 14px; }
+    .mini{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:10px;
+    }
+    .points{
+      margin-top:14px;
+      display:grid; gap:10px;
+    }
+    .point{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background: rgba(255,255,255,.03);
+    }
+    .check{
+      width:22px; height:22px; border-radius:8px;
+      background: rgba(54,211,153,.15);
+      border:1px solid rgba(54,211,153,.35);
+      display:flex; align-items:center; justify-content:center;
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+    .check svg{ width:14px; height:14px; fill:var(--ok); }
+    .point b{ display:block; margin-bottom:2px; }
+    .point span{ color:var(--muted); font-size:13.5px; }
+
+    /* ===== mock / image card ===== */
+    .mock{
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      min-height: 420px;
+    }
+    .mockHeader{
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      background: rgba(255,255,255,.02);
+    }
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      font-weight:800; font-size:12px; color:var(--muted);
+    }
+    .tag .b{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--brand);
+      box-shadow:0 0 0 5px rgba(255,106,0,.12);
+    }
+    .mockBody{
+      padding:16px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .coverWrap{
+      width:min(360px, 100%);
+      aspect-ratio: 4 / 5;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,.50);
+      position:relative;
+    }
+    .coverWrap img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .coverFallback{
+      width:100%; height:100%;
+      display:flex; align-items:center; justify-content:center;
+      padding:18px;
+      color:var(--muted);
+      text-align:center;
+      font-weight:800;
+    }
+    .mockFooter{
+      padding:14px 16px;
+      border-top:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+    }
+
+    /* ===== sections ===== */
+    .section{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+    }
+    @media (max-width: 920px){
+      .section{ grid-template-columns: 1fr; }
+    }
+    .card{
+      background: rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:16px;
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing:-.2px;
+    }
+    .card p{ margin:0 0 10px; color:var(--muted); }
+    .list{ margin:0; padding-left:18px; color:var(--muted); }
+    .list li{ margin:7px 0; }
+    .grid3{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width: 920px){
+      .grid3{ grid-template-columns: 1fr; }
+    }
+    .miniCard{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background: rgba(255,255,255,.02);
+    }
+    .miniCard b{ display:block; margin-bottom:6px; }
+    .miniCard span{ color:var(--muted); font-size:13.5px; }
+
+    /* ===== FAQs ===== */
+    details{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 12px;
+      background: rgba(255,255,255,.02);
+      margin:10px 0;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    details p{ margin:10px 0 0; color:var(--muted); }
+
+    /* ===== footer ===== */
+    footer{
+      margin-top:22px;
+      padding:18px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    /* ===== hidden pages ===== */
+    .page{ display:none; }
+    .page.active{ display:block; }
+
+    /* ===== toast ===== */
+    .toast{
+      position:fixed;
+      bottom:16px; left:50%;
+      transform:translateX(-50%);
+      background: rgba(15,22,32,.92);
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius:999px;
+      color:var(--text);
+      font-weight:800;
+      box-shadow: var(--shadow);
+      display:none;
+      max-width: calc(100% - 24px);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      z-index:100;
+    }
+    .toast.show{ display:block; }
+    .hl{ color:#fff; }
+  </style>
+</head>
+
+<body>
+  <!-- ===== topbar ===== -->
+  <div class="topbar">
+    <div class="inner">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>GPT School • Sales Pages</span>
+      </div>
+
+      <div class="controls">
+        <div class="seg" role="tablist" aria-label="Selecionar versão">
+          <button id="tabPT" class="active" type="button">🇧🇷 PT</button>
+          <button id="tabEN" type="button">🇺🇸 EN</button>
+        </div>
+
+        <button id="copyLink" class="btn" type="button">Copiar link</button>
+        <a id="buyBtnTop" class="btn primary" href="#comprar">Quero o eBook</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- =========================
+      PAGE: PORTUGUÊS
+    ========================== -->
+    <main id="pagePT" class="page active" lang="pt-BR">
+      <div class="hero">
+        <section class="panel pad">
+          <div class="kicker">🚀 Do zero ao app • só com celular</div>
+          <h1>Programar com ChatGPT usando apenas o celular</h1>
+          <p class="sub">
+            Crie aplicativos reais, funcionais e monetizáveis — mesmo sem computador.
+            Um método prático para iniciantes usando <span class="hl">ChatGPT + GitHub + PWA</span>.
+          </p>
+
+          <div class="pill">✅ Sem computador • ✅ Passo a passo • ✅ Projetos práticos</div>
+
+          <div class="ctaRow" id="comprar">
+            <!-- Troque o href pelo seu link (Hotmart, checkout, etc.) -->
+            <a class="btn primary" id="buyPT" href="https://SEU-LINK-AQUI" target="_blank" rel="noopener">Comprar agora</a>
+            <a class="btn" href="#conteudoPT">Ver o que tem dentro</a>
+          </div>
+
+          <div class="mini">
+            ⚡ Acesso imediato em PDF • 📱 Mobile-friendly • 🔒 Download após compra
+          </div>
+
+          <div class="points">
+            <div class="point">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9.55 17.2 4.8 12.45l1.4-1.4 3.35 3.35 8.25-8.25 1.4 1.4z"/></svg>
+              </div>
+              <div>
+                <b>Aprenda criando</b>
+                <span>Miniapp → Lista de tarefas → Quiz → PWA instalável → Monetização.</span>
+              </div>
+            </div>
+
+            <div class="point">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9.55 17.2 4.8 12.45l1.4-1.4 3.35 3.35 8.25-8.25 1.4 1.4z"/></svg>
+              </div>
+              <div>
+                <b>ChatGPT como copiloto</b>
+                <span>Gere, entenda e corrija código com prompts prontos e explicações simples.</span>
+              </div>
+            </div>
+
+            <div class="point">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9.55 17.2 4.8 12.45l1.4-1.4 3.35 3.35 8.25-8.25 1.4 1.4z"/></svg>
+              </div>
+              <div>
+                <b>Publicação e produto</b>
+                <span>Aprenda a publicar no GitHub Pages e a estruturar caminhos de monetização.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel mock">
+          <div class="mockHeader">
+            <div class="tag"><span class="b"></span> Mockup 3D • PT</div>
+            <span class="badge">📌 Troque as imagens abaixo</span>
+          </div>
+
+          <div class="mockBody">
+            <div class="coverWrap">
+              <!-- Coloque sua imagem aqui: images/ebook-pt-3d.png -->
+              <img id="imgPT" src="images/ebook-pt-3d.png" alt="Mockup 3D do eBook em português"
+                   onerror="this.remove(); document.getElementById('fallbackPT').style.display='flex';" />
+              <div class="coverFallback" id="fallbackPT" style="display:none;">
+                Coloque sua imagem em:<br><b>images/ebook-pt-3d.png</b><br><br>
+                Dica: use o mockup 3D que você gerou.
+              </div>
+            </div>
+          </div>
+
+          <div class="mockFooter">
+            <span class="badge">📱 Só celular</span>
+            <span class="badge">🌐 GitHub Pages</span>
+            <span class="badge">🧩 HTML/CSS/JS</span>
+            <span class="badge">📲 PWA</span>
+          </div>
+        </aside>
+      </div>
+
+      <section id="conteudoPT" class="section">
+        <div class="card">
+          <h2>📌 O que você vai aprender</h2>
+          <ul class="list">
+            <li>Como programar usando apenas o celular (sem PC).</li>
+            <li>Como usar o ChatGPT para gerar, explicar e corrigir códigos.</li>
+            <li>Como criar apps com HTML, CSS e JavaScript do zero.</li>
+            <li>Como publicar no GitHub Pages e ter um link público do seu app.</li>
+            <li>Como transformar projetos em PWA (instaláveis no Android).</li>
+            <li>Como salvar dados com localStorage (tarefas, perguntas do quiz etc.).</li>
+            <li>Como aplicar estratégia de monetização (Hotmart e caminhos para lojas).</li>
+          </ul>
+
+          <div class="grid3">
+            <div class="miniCard">
+              <b>✅ Projetos práticos</b>
+              <span>Você aprende construindo apps reais, não só lendo teoria.</span>
+            </div>
+            <div class="miniCard">
+              <b>✅ Método replicável</b>
+              <span>Use o mesmo passo a passo para criar novos apps depois.</span>
+            </div>
+            <div class="miniCard">
+              <b>✅ Foco em execução</b>
+              <span>Feito para copiar, colar, testar e ver funcionando.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>🎯 Para quem é</h2>
+          <p>Perfeito para quem quer começar do zero e ter resultado rápido.</p>
+          <ul class="list">
+            <li>Iniciantes absolutos em programação</li>
+            <li>Pessoas que só têm um celular disponível</li>
+            <li>Empreendedores digitais e criadores de conteúdo</li>
+            <li>Estudantes e curiosos que querem um método simples</li>
+          </ul>
+
+          <h2 style="margin-top:14px;">📦 O que você recebe</h2>
+          <ul class="list">
+            <li>PDF completo e organizado por capítulos</li>
+            <li>Projetos prontos com código destacado</li>
+            <li>Guia de GitHub no celular</li>
+            <li>Guia de PWA (manifest + service worker)</li>
+            <li>Capítulo de monetização e próximos passos</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <h2>🧠 FAQ (Perguntas comuns)</h2>
+
+          <details>
+            <summary>Preciso saber programar antes?</summary>
+            <p>Não. O ebook começa do básico e evolui por projetos. Você aprende fazendo.</p>
+          </details>
+
+          <details>
+            <summary>Preciso de computador?</summary>
+            <p>Não. O livro foi construído para funcionar com celular + navegador + GitHub.</p>
+          </details>
+
+          <details>
+            <summary>Funciona no Android?</summary>
+            <p>Sim. O PWA é instalável no Chrome Android e roda como app na tela inicial.</p>
+          </details>
+
+          <details>
+            <summary>Vou conseguir publicar meus apps?</summary>
+            <p>Sim. O passo a passo usa GitHub Pages, que é simples e gratuito.</p>
+          </details>
+        </div>
+
+        <div class="card">
+          <h2>🚀 CTA Final</h2>
+          <p>Se você quer começar hoje e ver um app funcionando no seu celular, este ebook foi feito para você.</p>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="https://SEU-LINK-AQUI" target="_blank" rel="noopener">Comprar agora</a>
+            <button class="btn" type="button" id="scrollTopPT">Voltar ao topo</button>
+          </div>
+
+          <p class="mini">
+            Dica: troque <b>SEU-LINK-AQUI</b> pelo seu checkout (Hotmart, etc.).<br>
+            Coloque sua imagem em <b>images/ebook-pt-3d.png</b>.
+          </p>
+        </div>
+      </section>
+    </main>
 
