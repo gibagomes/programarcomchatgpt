@@ -334,6 +334,15 @@
   color:#e6e6e6;
   opacity:.9;
 }
+
+.ctaRow{
+  margin-top: 12px;
+}
+
+.video-container{
+  max-width: 860px;
+}
+
   </style>
 </head>
 
@@ -365,6 +374,23 @@
 
           <div class="pill">✅ Sem computador • ✅ Passo a passo • ✅ Projetos práticos</div>
 
+
+<div class="video-container">
+  <iframe
+    src="https://www.youtube.com/embed/SEU_VIDEO_ID"
+    title="Apresentação do Ebook GPT School"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const iframe = document.querySelector(".video-container iframe");
+  if (iframe) iframe.setAttribute("loading", "lazy");
+});
+</script>
           <div class="ctaRow" id="comprar">
             <a class="btn primary" href="https://pay.hotmart.com/O103560798D" target="_blank" rel="noopener">Comprar agora</a>
             <a class="btn" href="#conteudo">Ver o que tem dentro</a>
